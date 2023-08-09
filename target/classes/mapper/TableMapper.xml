@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.acorn.tracking.mapper.TableMapper">
+
+    <!-- Products 테이블 삭제 -->
+    <delete id="dropProducts">
+        DROP TABLE IF EXISTS Products;
+    </delete>
+
+    <!-- Products 테이블 생성 -->
+    <update id="createProducts">
+        CREATE TABLE Products (
+            product_id INT AUTO_INCREMENT PRIMARY KEY,
+            product_name VARCHAR(255),               
+            price INT,                                 
+            category ENUM('vegetable_fruit', 'meat', 'seafood', 'dairy') 
+        );  
+    </update>
+
+    <!-- ProductsStocks 테이블 삭제 -->
+    <delete id="dropProductsStocks">
+        DROP TABLE IF EXISTS Product_Stocks;
+    </delete>
+
+    <!-- ProductsStocks 테이블 생성 -->
+    <update id="createProductsStocks">
+        CREATE TABLE Product_Stocks (
+            product_id INT,                            
+            quantity_available INT,                    
+            last_update DATETIME,                      
+            FOREIGN KEY (product_id) REFERENCES Products(product_id)
+        );
+    </update>
+
+    <!-- Admins 테이블 삭제 -->
+    <delete id="dropAdmins">
+        DROP TABLE IF EXISTS Admins;
+    </delete>
+
+    <!-- Admins 테이블 생성 -->
+    <update id="createAdmins">
+        CREATE TABLE Admins (
+            admin_id INT AUTO_INCREMENT PRIMARY KEY,
+            name VARCHAR(255),
+            email VARCHAR(255) UNIQUE,
+            password VARCHAR(255)
+        );
+    </update>
+
+    <!-- Baskets 테이블 삭제 -->
+    <delete id="dropBaskets">
+        DROP TABLE IF EXISTS Baskets;
+    </delete>
+
+    <!-- Baskets 테이블 생성 -->
+    <update id="createBaskets">
+        CREATE TABLE Baskets (
+            basket_id INT AUTO_INCREMENT PRIMARY KEY, 
+            category ENUM('vegetable/fruit', 'meat', 'seafood', 'dairy'),
+            current_temperature DECIMAL(5, 2),       
+            current_humidity DECIMAL(5, 2),           
+            freshness_level DECIMAL(5, 2)            
+        );
+    </update>
+
+    <!-- Orders 테이블 삭제 -->
+    <delete id="dropOrders">
+        DROP TABLE IF EXISTS Orders;
+    </delete>
+
+    <!-- Orders 테이블 생성 -->
+    <update id="createOrders">
+        CREATE TABLE Orders (
+            order_id INT AUTO_INCREMENT PRIMARY KEY,   
+            admin_id INT,                              
+            date_time DATETIME,                      
+            total_price INT,                          
+            delivery_address TEXT,                    
+            status ENUM('pending', 'processing', 'shipped', 'delivered'), 
+            basket_id INT,                            
+            FOREIGN KEY (admin_id) REFERENCES Admins(admin_id),
+            FOREIGN KEY (basket_id) REFERENCES Baskets(basket_id)
+        );
+    </update>
+
+    <!-- Order_Details 테이블 삭제 -->
+    <delete id="dropOrderDetails">
+        DROP TABLE IF EXISTS Order_Details;
+    </delete>
+
+    <!-- Order_Details 테이블 생성 -->
+    <update id="createOrderDetails">
+        CREATE TABLE Order_Details (
+            order_id INT,                             
+            product_id INT,                           
+            quantity_ordered INT,                     
+            price_each INT,                           
+            FOREIGN KEY (order_id) REFERENCES Orders(order_id),
+            FOREIGN KEY (product_id) REFERENCES Products(product_id) 
+        );
+    </update>
+
+    <!-- Deliveries 테이블 삭제 -->
+    <delete id="dropDeliveries">
+        DROP TABLE IF EXISTS Deliveries;
+    </delete>
+
+    <!-- Deliveries 테이블 생성 -->
+    <update id="createDeliveries">
+        CREATE TABLE Deliveries (
+            delivery_id INT AUTO_INCREMENT PRIMARY KEY, 
+            order_id INT,                               
+            admin_id INT,                              
+            delivery_status ENUM('in transit', 'delivered', 'retrieved'), 
+            delivery_time DATETIME,                   
+            basket_id INT,                             
+            current_temperature DECIMAL(5, 2),         
+            current_humidity DECIMAL(5, 2),            
+            freshness_level DECIMAL(5, 2),             
+            FOREIGN KEY (order_id) REFERENCES Orders(order_id),
+            FOREIGN KEY (admin_id) REFERENCES Admins(admin_id),
+            FOREIGN KEY (basket_id) REFERENCES Baskets(basket_id)
+        );
+    </update>
+
+    <!-- Delivery_Locations 테이블 삭제 -->
+    <delete id="dropDeliveryLocations">
+        DROP TABLE IF EXISTS Delivery_Locations;
+    </delete>
+
+    <!-- Delivery_Locations 테이블 생성 -->
+    <update id="createDeliveryLocations">
+        CREATE TABLE Delivery_Locations (
+            delivery_id INT,                           
+            time_stamp DATETIME,                       
+            latitude DECIMAL(9, 6),                  
+            longitude DECIMAL(9, 6),                   
+            FOREIGN KEY (delivery_id) REFERENCES Deliveries(delivery_id) 
+        );
+    </update>
+
+    <!-- Recalls 테이블 삭제 -->
+    <delete id="dropRecalls">
+        DROP TABLE IF EXISTS Recalls;
+    </delete>
+
+    <!-- Recalls 테이블 생성 -->
+    <update id="createRecalls">
+        CREATE TABLE Recalls (
+            recall_id INT AUTO_INCREMENT PRIMARY KEY,  
+            product_id INT,                           
+            is_recalled BOOLEAN,                      
+            recall_date DATE,                        
+            postponed_delivery_date DATE,            
+            FOREIGN KEY (product_id) REFERENCES Products(product_id) 
+        );
+    </update>
+
+</mapper>
+

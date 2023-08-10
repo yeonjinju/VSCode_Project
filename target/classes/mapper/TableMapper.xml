@@ -11,25 +11,12 @@
     <!-- Products 테이블 생성 -->
     <update id="createProducts">
         CREATE TABLE Products (
-            product_id INT AUTO_INCREMENT PRIMARY KEY,
-            product_name VARCHAR(255),               
+            product_id INT AUTO_INCREMENT PRIMARY KEY,  
+            product_name VARCHAR(255),                 
             price INT,                                 
-            category ENUM('vegetable_fruit', 'meat', 'seafood', 'dairy') 
-        );  
-    </update>
-
-    <!-- ProductsStocks 테이블 삭제 -->
-    <delete id="dropProductsStocks">
-        DROP TABLE IF EXISTS Product_Stocks;
-    </delete>
-
-    <!-- ProductsStocks 테이블 생성 -->
-    <update id="createProductsStocks">
-        CREATE TABLE Product_Stocks (
-            product_id INT,                            
+            category ENUM('vegetable_fruit', 'meat', 'seafood', 'dairy'), 
             quantity_available INT,                    
-            last_update DATETIME,                      
-            FOREIGN KEY (product_id) REFERENCES Products(product_id)
+            last_update DATETIME                       
         );
     </update>
 
@@ -73,31 +60,13 @@
     <update id="createOrders">
         CREATE TABLE Orders (
             order_id INT AUTO_INCREMENT PRIMARY KEY,   
-            admin_id INT,                              
-            date_time DATETIME,                      
+            admin_id INT,                             
+            date_time DATETIME,
+            quantity_ordered INT,                      
             total_price INT,                          
-            delivery_address TEXT,                    
-            status ENUM('pending', 'processing', 'shipped', 'delivered'), 
-            basket_id INT,                            
-            FOREIGN KEY (admin_id) REFERENCES Admins(admin_id),
-            FOREIGN KEY (basket_id) REFERENCES Baskets(basket_id)
-        );
-    </update>
-
-    <!-- Order_Details 테이블 삭제 -->
-    <delete id="dropOrderDetails">
-        DROP TABLE IF EXISTS Order_Details;
-    </delete>
-
-    <!-- Order_Details 테이블 생성 -->
-    <update id="createOrderDetails">
-        CREATE TABLE Order_Details (
-            order_id INT,                             
-            product_id INT,                           
-            quantity_ordered INT,                     
-            price_each INT,                           
-            FOREIGN KEY (order_id) REFERENCES Orders(order_id),
-            FOREIGN KEY (product_id) REFERENCES Products(product_id) 
+            delivery_address TEXT,                                             
+            customer_name VARCHAR(255),              
+            FOREIGN KEY (admin_id) REFERENCES Admins(admin_id)
         );
     </update>
 

@@ -15,8 +15,8 @@ public class Orders {
     private int order_id;
     private int admin_id;
     private LocalDateTime date_time;
+    private int quantity_ordered;
     private int total_price;
     private String delivery_address;
-    private int basket_id;
-    private Status status;
+    private String customer_name;
 }

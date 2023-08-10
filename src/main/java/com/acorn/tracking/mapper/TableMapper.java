@@ -10,18 +10,12 @@ public interface TableMapper {
     // 상품
     void dropProducts();
     void createProducts();
-    // 상품 재고
-    void dropProductsStocks();
-    void createProductsStocks();
     // 바구니
     void dropBaskets();
     void createBaskets();
     // 주문
     void dropOrders();
     void createOrders();
-    // 주문 상세
-    void dropOrderDetails();
-    void createOrderDetails();
     // 배송
     void dropDeliveries();
     void createDeliveries();

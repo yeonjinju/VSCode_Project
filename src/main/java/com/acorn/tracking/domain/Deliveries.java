@@ -14,12 +14,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Deliveries {
     private int delivery_id;
-    private int order_id;
-    private int admin_id;
     private int basket_id;
+    private int order_id;
     private Status status;
+    private BigDecimal latitude;
+    private BigDecimal longitude;
     private LocalDateTime delivery_time;
-    private BigDecimal current_temperature;
-    private BigDecimal current_humidity;
-    private BigDecimal freshness_level;
 }

@@ -19,9 +19,6 @@ public interface TableMapper {
     // 배송
     void dropDeliveries();
     void createDeliveries();
-    // 배송 위치
-    void dropDeliveryLocations();
-    void createDeliveryLocations();
     // 리콜
     void dropRecalls();
     void createRecalls();

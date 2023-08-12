@@ -18,15 +18,15 @@ import com.google.gson.reflect.TypeToken;
 
 import lombok.RequiredArgsConstructor;
 
-@Service // 서비스 클래스라는걸 정의(인식)
-@RequiredArgsConstructor // final (auto안써도됌)
+@Service
+@RequiredArgsConstructor
 public class ProductsServiceImpl implements ProductsService {
 
     private final ProductsMapper productsMapper;
 
     @Override
-    public void loadProductsFromFile() throws IOException { // 이곳에서 입셉션을 호출한곳에 던지는 (입센션에서 처리하는 정의 단위)
-        InputStream inputStream = getProductsJsonInputStream(); // 내부에 담긴 json으로 된 파일을 읽어와서 인풋스트림에 넣음
+    public void loadProductsFromFile() throws IOException {
+        InputStream inputStream = getProductsJsonInputStream();
         List<Products> products = readProductsFromJson(inputStream);
         insertProductsIntoDatabase(products);
     }

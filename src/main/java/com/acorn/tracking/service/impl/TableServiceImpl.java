@@ -21,7 +21,6 @@ public class TableServiceImpl implements TableService {
         try {
             // 기존 테이블들에 대한 삭제 작업을 수행합니다.
             tableMapper.dropRecalls();
-            tableMapper.dropDeliveryLocations();
             tableMapper.dropDeliveries();
             tableMapper.dropOrders();
             tableMapper.dropBaskets();
@@ -33,7 +32,6 @@ public class TableServiceImpl implements TableService {
             tableMapper.createBaskets();
             tableMapper.createOrders();
             tableMapper.createDeliveries();
-            tableMapper.createDeliveryLocations();
             tableMapper.createRecalls();
             // 모든 작업이 성공하면 트랜잭션이 커밋됩니다.
         } catch (Exception e) {

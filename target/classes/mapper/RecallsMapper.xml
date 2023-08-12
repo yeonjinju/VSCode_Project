@@ -3,9 +3,4 @@
 
 <mapper namespace="com.acorn.tracking.mapper.RecallsMapper">
 
-    <!-- <select id="getData" parameterType="java.lang.String" resultType="Recall">
-        SELECT name
-        FROM recall
-        WHERE name=#{name}
-	</select> -->
 </mapper>

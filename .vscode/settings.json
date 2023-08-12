@@ -7,5 +7,6 @@
         "latlng",
         "Removeable",
         "taglib"
-    ]
+    ],
+    "java.compile.nullAnalysis.mode": "automatic"
 }

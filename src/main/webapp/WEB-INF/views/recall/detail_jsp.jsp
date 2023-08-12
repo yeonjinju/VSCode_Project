@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>    
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -34,18 +34,21 @@
     <div class="recall">
             <p> 신선도 알림
                 <div class="line"></div>
-    
-            <!-- JSP 반복문을 사용하여 데이터베이스에서 가져온 정보를 사용하여 버튼 생성 -->
-            <c:forEach var="recall_id" items="${recall_id}">
-                <button id="p${recall_id.index}" onclick="handleButtonClicked(${recall_id.index})">
-                    ${recall_id.name }님의 신선도가 70% 이하로 떨어졌습니다.<br> 현재 신선도는 ${position.freshness}% 입니다.
-                </button>
+                <button id="p1" onclick="panTo()">주연진님의 신선도가 70% 이하로 떨어졌습니다.<br> 현재 신선도는 55% 입니다.</button>
                 <br><br>
-            </c:forEach>
-            
-        </p>
+                <button id="p2" onclick="panTo()">조국환님의 신선도가 70% 이하로 떨어졌습니다.<br> 현재 신선도는 49% 입니다.</button>
+                <br><br>
+                <button id="p3" onclick="panTo()">남지선님의 신선도가 70% 이하로 떨어졌습니다.<br> 현재 신선도는 66% 입니다.</button>
+                <br><br>
+                <button id="p4" onclick="panTo()">김민규님의 신선도가 70% 이하로 떨어졌습니다.<br> 현재 신선도는 61% 입니다.</button>
+                <br><br>
+                <button id="p5" onclick="panTo()">이우현님의 신선도가 70% 이하로 떨어졌습니다.<br> 현재 신선도는 24% 입니다.</button>
+                <br><br>
+                <button id="p6" onclick="panTo()">김선제님의 신선도가 70% 이하로 떨어졌습니다.<br> 현재 신선도는 36% 입니다.</button>
+                <br><br>
+            </p>
     </div>
-
+    
 
     <script type="text/javascript"
     src="http://dapi.kakao.com/v2/maps/sdk.js?appkey=d865c67a15044f7517639c54d9a0f65c"></script>

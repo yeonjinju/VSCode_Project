@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -32,26 +32,21 @@
     <p id="result"></p>
     <br>
     <div class="recall">
-            <p> 신선도 알림
-                <div class="line"></div>
-                <button id="p1" onclick="panTo()">주연진님의 신선도가 70% 이하로 떨어졌습니다.<br> 현재 신선도는 55% 입니다.</button>
+        <p>신선도 알림</p>
+        <div class="line"></div>
+        <div id="buttons">
+            <!-- JSP 서버 사이드 코드로 버튼 생성 -->
+            <c:forEach var="item" items="${data}">
+                <button onclick="handleButtonClicked(${item.index})">
+                    ${item.customer_name}님의 신선도가 70% 이하로 떨어졌습니다.<br>
+                    현재 신선도는 ${item.freshness_level}% 입니다.
+                </button>
                 <br><br>
-                <button id="p2" onclick="panTo()">조국환님의 신선도가 70% 이하로 떨어졌습니다.<br> 현재 신선도는 49% 입니다.</button>
-                <br><br>
-                <button id="p3" onclick="panTo()">남지선님의 신선도가 70% 이하로 떨어졌습니다.<br> 현재 신선도는 66% 입니다.</button>
-                <br><br>
-                <button id="p4" onclick="panTo()">김민규님의 신선도가 70% 이하로 떨어졌습니다.<br> 현재 신선도는 61% 입니다.</button>
-                <br><br>
-                <button id="p5" onclick="panTo()">이우현님의 신선도가 70% 이하로 떨어졌습니다.<br> 현재 신선도는 24% 입니다.</button>
-                <br><br>
-                <button id="p6" onclick="panTo()">김선제님의 신선도가 70% 이하로 떨어졌습니다.<br> 현재 신선도는 36% 입니다.</button>
-                <br><br>
-            </p>
+            </c:forEach>
+        </div>
     </div>
-    
 
-    <script type="text/javascript"
-    src="http://dapi.kakao.com/v2/maps/sdk.js?appkey=d865c67a15044f7517639c54d9a0f65c"></script>
+    <script type="text/javascript" src="http://dapi.kakao.com/v2/maps/sdk.js?appkey=d865c67a15044f7517639c54d9a0f65c"></script>
     <script> // 지도 기본값 
         var mapContainer = document.getElementById('map'),
             mapOption = {

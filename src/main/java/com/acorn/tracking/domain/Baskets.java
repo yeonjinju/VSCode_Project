@@ -13,7 +13,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Baskets {
     private int basket_id;
+    private int product_id;
     private BigDecimal current_temperature;
     private BigDecimal current_humidity;
-    private Category category;
+    private BigDecimal freshness_level;
 }

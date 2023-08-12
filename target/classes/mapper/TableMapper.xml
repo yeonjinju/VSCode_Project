@@ -44,10 +44,11 @@
     <update id="createBaskets">
         CREATE TABLE Baskets (
             basket_id INT AUTO_INCREMENT PRIMARY KEY, 
-            category ENUM('vegetable/fruit', 'meat', 'seafood', 'dairy'),
+            product_id INT,
             current_temperature DECIMAL(5, 2),       
             current_humidity DECIMAL(5, 2),           
-            freshness_level DECIMAL(5, 2)            
+            freshness_level DECIMAL(5, 2),  
+            FOREIGN KEY (product_id) REFERENCES Products(product_id)          
         );
     </update>
 
@@ -59,14 +60,13 @@
     <!-- Orders 테이블 생성 -->
     <update id="createOrders">
         CREATE TABLE Orders (
-            order_id INT AUTO_INCREMENT PRIMARY KEY,   
-            admin_id INT,                             
+            order_id INT AUTO_INCREMENT PRIMARY KEY,                            
             date_time DATETIME,
             quantity_ordered INT,                      
             total_price INT,                          
-            delivery_address TEXT,                                             
-            customer_name VARCHAR(255),              
-            FOREIGN KEY (admin_id) REFERENCES Admins(admin_id)
+            latitude DECIMAL(8, 5),  
+            longitude DECIMAL(8, 5),                                             
+            customer_name VARCHAR(30)           
         );
     </update>
 
@@ -78,34 +78,15 @@
     <!-- Deliveries 테이블 생성 -->
     <update id="createDeliveries">
         CREATE TABLE Deliveries (
-            delivery_id INT AUTO_INCREMENT PRIMARY KEY, 
-            order_id INT,                               
-            admin_id INT,                              
-            delivery_status ENUM('in transit', 'delivered', 'retrieved'), 
-            delivery_time DATETIME,                   
-            basket_id INT,                             
-            current_temperature DECIMAL(5, 2),         
-            current_humidity DECIMAL(5, 2),            
-            freshness_level DECIMAL(5, 2),             
-            FOREIGN KEY (order_id) REFERENCES Orders(order_id),
-            FOREIGN KEY (admin_id) REFERENCES Admins(admin_id),
-            FOREIGN KEY (basket_id) REFERENCES Baskets(basket_id)
-        );
-    </update>
-
-    <!-- Delivery_Locations 테이블 삭제 -->
-    <delete id="dropDeliveryLocations">
-        DROP TABLE IF EXISTS Delivery_Locations;
-    </delete>
-
-    <!-- Delivery_Locations 테이블 생성 -->
-    <update id="createDeliveryLocations">
-        CREATE TABLE Delivery_Locations (
-            delivery_id INT,                           
-            time_stamp DATETIME,                       
-            latitude DECIMAL(9, 6),                  
-            longitude DECIMAL(9, 6),                   
-            FOREIGN KEY (delivery_id) REFERENCES Deliveries(delivery_id) 
+            delivery_id INT AUTO_INCREMENT PRIMARY KEY,                                
+            basket_id INT,
+            order_id INT,                                
+            delivery_status ENUM('in transit', 'delivered', 'retrieved'),
+            latitude DECIMAL(8, 5),
+            longitude DECIMAL(8, 5),
+            delivery_time DATETIME,               
+            FOREIGN KEY (basket_id) REFERENCES Baskets(basket_id),
+            FOREIGN KEY (order_id) REFERENCES Orders(order_id)
         );
     </update>
 
@@ -118,13 +99,12 @@
     <update id="createRecalls">
         CREATE TABLE Recalls (
             recall_id INT AUTO_INCREMENT PRIMARY KEY,  
-            product_id INT,                           
+            delivery_id INT,                           
             is_recalled BOOLEAN,                      
             recall_date DATE,                        
             postponed_delivery_date DATE,            
-            FOREIGN KEY (product_id) REFERENCES Products(product_id) 
+            FOREIGN KEY (delivery_id) REFERENCES Deliveries(delivery_id)  
         );
     </update>
 
 </mapper>
-

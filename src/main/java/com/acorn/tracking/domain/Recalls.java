@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Recalls {
     private int recall_id;
-    private int product_id;
+    private int delivery_id;
     private boolean is_recalled;
     private LocalDateTime recall_date;
     private LocalDateTime postponed_delivery_date;
